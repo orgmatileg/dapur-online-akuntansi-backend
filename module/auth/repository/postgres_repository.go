@@ -2,8 +2,8 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 )
 
 // postgresAuthRepository struct

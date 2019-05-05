@@ -1,6 +1,6 @@
 package users_role
 
-import "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/model"
+import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/model"
 
 type Usecase interface {
 	Save(*model.UserRole) error

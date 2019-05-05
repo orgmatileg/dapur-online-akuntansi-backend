@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	productTypes "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types/model"
+	productTypes "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/model"
 )
 
 // postgresProductTypesRepository struct

@@ -2,10 +2,10 @@ package usecase
 
 import (
 	"errors"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth"
-	modelAuth "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth/model"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
+	modelAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

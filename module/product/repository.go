@@ -1,6 +1,6 @@
 package product
 
-import "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product/model"
+import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/model"
 
 // Repository interface
 type Repository interface {

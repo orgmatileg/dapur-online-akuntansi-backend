@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 )
 
 // postgresUsersRepository struct

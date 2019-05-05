@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 
 	"golang.org/x/crypto/bcrypt"
 	"time"

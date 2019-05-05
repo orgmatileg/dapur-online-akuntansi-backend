@@ -11,8 +11,8 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/config"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/router"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/router"
 )
 
 func init() {

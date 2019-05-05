@@ -5,25 +5,25 @@ import (
 
 	"net/http"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/config"
-	// m "github.com/orgmatileg/SOLO-YOLO-BACKEND/middleware"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
+	// m "github.com/orgmatileg/dapur-online-akuntansi-backend/middleware"
 
 	// Auth
-	hAuth "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth/delivery/http"
-	_authRepo "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth/repository"
-	_authUcase "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth/usecase"
+	hAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/delivery/http"
+	_authRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/repository"
+	_authUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/usecase"
 
 	// User
 
 	// User Role
-	hUserRole "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/delivery/http"
-	_usersRoleRepo "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/repository"
-	_usersRoleUcase "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/usecase"
+	hUserRole "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/delivery/http"
+	_usersRoleRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/repository"
+	_usersRoleUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/usecase"
 
 	// Product Types
-	hProductTypes "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types/delivery/http"
-	_productTypesRepo "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types/repository"
-	_productTypesUcase "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types/usecase"
+	hProductTypes "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/delivery/http"
+	_productTypesRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/repository"
+	_productTypesUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/usecase"
 
 	"github.com/gorilla/mux"
 )

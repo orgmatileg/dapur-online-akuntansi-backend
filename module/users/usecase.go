@@ -1,6 +1,6 @@
 package users
 
-import "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 
 type Usecase interface {
 	Save(*model.User) error

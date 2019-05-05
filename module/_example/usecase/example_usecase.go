@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	example "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/_example"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/_example/model"
+	example "github.com/orgmatileg/dapur-online-akuntansi-backend/module/_example"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/_example/model"
 )
 
 type exampleUsecase struct {

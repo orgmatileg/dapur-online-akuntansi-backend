@@ -2,9 +2,9 @@ package http
 
 import (
 	"encoding/json"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 	"golang.org/x/oauth2"
 
 	"net/http"

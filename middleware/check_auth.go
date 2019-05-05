@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/config"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
 )
 
 // CheckAuth func Middleware

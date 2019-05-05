@@ -1,6 +1,6 @@
 package example
 
-import "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/_example/model"
+import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/_example/model"
 
 type Usecase interface {
 	Save(*model.Example) error

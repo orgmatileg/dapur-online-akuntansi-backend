@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
-	userRole "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	userRole "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/model"
 
 	"github.com/gorilla/mux"
 )

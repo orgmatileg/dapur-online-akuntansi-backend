@@ -2,7 +2,7 @@ package helper
 
 import (
 	"errors"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/config"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
 
 	"github.com/dgrijalva/jwt-go"
 )

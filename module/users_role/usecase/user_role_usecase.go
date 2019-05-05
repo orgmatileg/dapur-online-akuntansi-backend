@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	userRole "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users_role/model"
+	userRole "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/model"
 )
 
 type userRoleUsecase struct {

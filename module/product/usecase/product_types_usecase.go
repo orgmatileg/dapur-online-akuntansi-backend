@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	product "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product/model"
+	product "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/model"
 )
 
 type productUsecase struct {

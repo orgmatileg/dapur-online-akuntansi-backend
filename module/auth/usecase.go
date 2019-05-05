@@ -1,8 +1,8 @@
 package auth
 
 import (
-	modelAuth "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/auth/model"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/users/model"
+	modelAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 	"golang.org/x/oauth2"
 )
 

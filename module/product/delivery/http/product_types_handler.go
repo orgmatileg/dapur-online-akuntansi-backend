@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/helper"
-	productTypes "github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types"
-	"github.com/orgmatileg/SOLO-YOLO-BACKEND/module/product_types/model"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	productTypes "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/model"
 
 	"github.com/gorilla/mux"
 )
