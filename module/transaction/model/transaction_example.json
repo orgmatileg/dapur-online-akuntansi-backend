@@ -1,0 +1,20 @@
+{
+  "carts": [
+    {
+      "product_id": 1,
+      "product_name": "Ikan bakar",
+      "product_types": {
+        "product_types_id": 1,
+        "product_types_name": "makanan"
+      },
+      "capital_price": 5000,
+      "selling_price": 10000,
+      "image": "",
+      "description": "",
+      "note": ""
+    }
+  ],
+  "grand_total_capital_price": 5000,
+  "grand_total_selling_price": 10000,
+  "notes": ""
+}
