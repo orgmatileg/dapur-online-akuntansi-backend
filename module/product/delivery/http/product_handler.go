@@ -6,36 +6,36 @@ import (
 	"net/http"
 
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
-	productTypes "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types"
-	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/model"
+	product "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/model"
 
 	"github.com/gorilla/mux"
 )
 
-type ProductTypesHandler struct {
-	PUsecase productTypes.Usecase
+type ProductHandler struct {
+	PUsecase product.Usecase
 }
 
-func NewProductTypesHTTPHandler(r *mux.Router, pu productTypes.Usecase) {
+func NewProductHTTPHandler(r *mux.Router, pu product.Usecase) {
 
-	handler := ProductTypesHandler{
+	handler := ProductHandler{
 		PUsecase: pu,
 	}
 
-	r.HandleFunc("/product-types", handler.ProductTypesSaveHTTPHandler).Methods("POST")
-	r.HandleFunc("/product-types", handler.ProductTypesFindAllHTTPHandler).Methods("GET")
-	r.HandleFunc("/product-types/{id}", handler.ProductTypesFindByIDHTTPHandler).Methods("GET")
-	r.HandleFunc("/product-types/{id}", handler.ProductTypesUpdateHTTPHandler).Methods("PUT")
-	r.HandleFunc("/product-types/{id}", handler.ProductTypesDeleteHTTPHandler).Methods("DELETE")
-	r.HandleFunc("/product-types/{id}/exists", handler.ProductTypesIsExistsByIDHTTPHandler).Methods("GET")
+	r.HandleFunc("/product", handler.ProductSaveHTTPHandler).Methods("POST")
+	r.HandleFunc("/product", handler.ProductFindAllHTTPHandler).Methods("GET")
+	r.HandleFunc("/product/{id}", handler.ProductFindByIDHTTPHandler).Methods("GET")
+	r.HandleFunc("/product/{id}", handler.ProductUpdateHTTPHandler).Methods("PUT")
+	r.HandleFunc("/product/{id}", handler.ProductDeleteHTTPHandler).Methods("DELETE")
+	r.HandleFunc("/product/{id}/exists", handler.ProductIsExistsByIDHTTPHandler).Methods("GET")
 }
 
 // productTypesSaveHTTPHandler handler
-func (u *ProductTypesHandler) ProductTypesSaveHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductSaveHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	decoder := json.NewDecoder(r.Body)
 
-	m := model.NewProductTypes()
+	m := model.NewProduct()
 
 	err, res := decoder.Decode(m), helper.Response{}
 
@@ -51,7 +51,7 @@ func (u *ProductTypesHandler) ProductTypesSaveHTTPHandler(w http.ResponseWriter,
 }
 
 // productTypesFindAllHTTPHandler handler
-func (u *ProductTypesHandler) ProductTypesFindAllHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductFindAllHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	queryParam := r.URL.Query()
 
@@ -79,7 +79,7 @@ func (u *ProductTypesHandler) ProductTypesFindAllHTTPHandler(w http.ResponseWrit
 }
 
 // productTypesFindByIDHTTPHandler handler
-func (u *ProductTypesHandler) ProductTypesFindByIDHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductFindByIDHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
@@ -92,7 +92,7 @@ func (u *ProductTypesHandler) ProductTypesFindByIDHTTPHandler(w http.ResponseWri
 }
 
 // ExampleUpdateHttpHandler handler
-func (u *ProductTypesHandler) ProductTypesUpdateHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductUpdateHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	res := helper.Response{}
@@ -101,7 +101,7 @@ func (u *ProductTypesHandler) ProductTypesUpdateHTTPHandler(w http.ResponseWrite
 
 	decoder := json.NewDecoder(r.Body)
 
-	var m model.ProductTypes
+	var m model.Product
 
 	err := decoder.Decode(&m)
 
@@ -124,7 +124,7 @@ func (u *ProductTypesHandler) ProductTypesUpdateHTTPHandler(w http.ResponseWrite
 }
 
 // productTypesDeleteHttpHandler handler
-func (u *ProductTypesHandler) ProductTypesDeleteHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductDeleteHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
@@ -144,7 +144,7 @@ func (u *ProductTypesHandler) ProductTypesDeleteHTTPHandler(w http.ResponseWrite
 }
 
 // productTypesIsExistsByIDHttpHandler handler
-func (u *ProductTypesHandler) ProductTypesIsExistsByIDHTTPHandler(w http.ResponseWriter, r *http.Request) {
+func (u *ProductHandler) ProductIsExistsByIDHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 

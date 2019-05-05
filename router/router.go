@@ -25,6 +25,11 @@ import (
 	_productTypesRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/repository"
 	_productTypesUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product_types/usecase"
 
+	// Product
+	hProduct "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/delivery/http"
+	_productRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/repository"
+	_productUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/usecase"
+
 	"github.com/gorilla/mux"
 )
 
@@ -65,6 +70,11 @@ func InitRouter() *mux.Router {
 	productTypesRepo := _productTypesRepo.NewProductTypesRepositoryPostgres(dbConn)
 	productTypesUcase := _productTypesUcase.NewProductTypesUsecase(productTypesRepo)
 	hProductTypes.NewProductTypesHTTPHandler(rv1, productTypesUcase)
+
+	// Product
+	productRepo := _productRepo.NewProductRepositoryPostgres(dbConn)
+	productUcase := _productUcase.NewProductUsecase(productRepo)
+	hProduct.NewProductHTTPHandler(rv1, productUcase)
 
 	return r
 }

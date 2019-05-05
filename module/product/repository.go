@@ -4,10 +4,10 @@ import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/mode
 
 // Repository interface
 type Repository interface {
-	Save(*model.ProductTypes) error
-	FindByID(id string) (*model.ProductTypes, error)
-	FindAll(limit, offset, order string) (mel model.ProductTypesList, err error)
-	Update(id string, m *model.ProductTypes) (*string, error)
+	Save(*model.Product) error
+	FindByID(id string) (*model.Product, error)
+	FindAll(limit, offset, order string) (ml model.ProductList, err error)
+	Update(id string, m *model.Product) (*string, error)
 	Delete(id string) error
 	IsExistsByID(id string) (bool, error)
 	Count() (int64, error)

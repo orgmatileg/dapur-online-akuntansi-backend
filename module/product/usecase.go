@@ -3,10 +3,10 @@ package product
 import "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/model"
 
 type Usecase interface {
-	Save(*model.ProductTypes) error
-	FindByID(id string) (*model.ProductTypes, error)
-	FindAll(limit, offset, order string) (mel model.ProductTypesList, count int64, err error)
-	Update(id string, m *model.ProductTypes) (*string, error)
+	Save(*model.Product) error
+	FindByID(id string) (*model.Product, error)
+	FindAll(limit, offset, order string) (ml model.ProductList, count int64, err error)
+	Update(id string, m *model.Product) (*string, error)
 	Delete(id string) error
 	IsExistsByID(id string) (bool, error)
 	Count() (int64, error)
