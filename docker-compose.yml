@@ -20,7 +20,7 @@ services:
       - "traefik.frontend.redirect.entryPoint=https"
     environment: 
       - GO_ENV=production
-      - DB_HOST=svr-aura.luqmanul.com
+      - DB_HOST=postgres-dev
       - DB_PORT=5432
       - DB_USER=hakim
       - DB_PASS=x83zR3wfTNwZ4zGU
