@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   api:
-    container_name: hacktiv8-api-final
+    container_name: dapur-online-akuntansi-api
     restart: always
     build:
       context: .
@@ -13,7 +13,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefiknet"
-      - "traefik.frontend.rule=Host:hacktiv8-blog.luqmanul.com"
+      - "traefik.frontend.rule=Host:dapur-online-akuntansi-api.luqmanul.com"
       - "traefik.port=8081"
       - "traefik.protocol=http"
       - "traefik.frontend.redirect.entryPoint=https"
@@ -22,8 +22,8 @@ services:
       - DB_HOST=svr-aura.luqmanul.com
       - DB_PORT=3312
       - DB_USER=root
-      - DB_PASS=ckBjJ5UBjRZ8GQgHPMmKB83cWCybQTCY
-      - DB_SCHEMA=auralph
+      - DB_PASS=x83zR3wfTNwZ4zGU
+      - DB_SCHEMA=dapur_online_akutansi
 
 networks:
   traefiknet:
