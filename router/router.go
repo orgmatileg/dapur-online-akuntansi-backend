@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
-	// m "github.com/orgmatileg/dapur-online-akuntansi-backend/middleware"
+	m "github.com/orgmatileg/dapur-online-akuntansi-backend/middleware"
 
 	// Auth
 	hAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/delivery/http"
@@ -14,6 +14,9 @@ import (
 	_authUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/usecase"
 
 	// User
+	hUser "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/delivery/http"
+	_usersRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/repository"
+	_usersUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/usecase"
 
 	// User Role
 	hUserRole "github.com/orgmatileg/dapur-online-akuntansi-backend/module/users_role/delivery/http"
@@ -51,7 +54,7 @@ func InitRouter() *mux.Router {
 	rv1 := r.PathPrefix("/v1").Subrouter()
 
 	// Middleware
-	// rv1.Use(m.CheckAuth)
+	rv1.Use(m.CheckAuth)
 
 	// Get DB Conn
 	dbConn := config.GetPostgresDB()
@@ -60,6 +63,11 @@ func InitRouter() *mux.Router {
 	authRepo := _authRepo.NewAuthRepositoryPostgres(dbConn)
 	authUcase := _authUcase.NewAuthUsecase(authRepo)
 	hAuth.NewAuthHttpHandler(rv1, authUcase)
+
+	// Users
+	usersRepo := _usersRepo.NewUserRepositoryPostgres(dbConn)
+	usersUcase := _usersUcase.NewUsersUsecase(usersRepo)
+	hUser.NewUsersHttpHandler(rv1, usersUcase)
 
 	// Users Role
 	usersRoleRepo := _usersRoleRepo.NewUsersRoleRepositoryPostgres(dbConn)
