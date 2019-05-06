@@ -61,3 +61,7 @@ func (a *authUsecase) LoginJWT(mu *model.User) (ma *modelAuth.Auth, err error) {
 
 	return ma, err
 }
+
+// func (a *authUsecase) Oauth2FacebookLogin() (*oauth2.Config, string) {
+// 	return modelAuth.NewFacebookOauth2Config(), uuid.NewV4().String()
+// }
