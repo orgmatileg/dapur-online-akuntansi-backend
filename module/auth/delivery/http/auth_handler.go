@@ -2,16 +2,14 @@ package http
 
 import (
 	"encoding/json"
+
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
-	"golang.org/x/oauth2"
 
 	"net/http"
 
-	"fmt"
 	"github.com/gorilla/mux"
-	"io/ioutil"
 )
 
 // AuthHandler struct
@@ -26,8 +24,8 @@ func NewAuthHttpHandler(r *mux.Router, au auth.Usecase) {
 	}
 
 	r.HandleFunc("/login", handler.AuthLoginJWTHTTPHandler).Methods("POST")
-	r.HandleFunc("/oauth/facebook/login", handler.Oauth2FacebookLoginHTTPHandler).Methods("GET")
-	r.HandleFunc("/oauth/facebook/callback", handler.Oauth2FacebookCallbackHTTPHandler).Methods("GET")
+	// r.HandleFunc("/oauth/facebook/login", handler.Oauth2FacebookLoginHTTPHandler).Methods("GET")
+	// r.HandleFunc("/oauth/facebook/callback", handler.Oauth2FacebookCallbackHTTPHandler).Methods("GET")
 
 }
 
@@ -60,50 +58,50 @@ func (a *AuthHandler) AuthLoginJWTHTTPHandler(w http.ResponseWriter, r *http.Req
 
 }
 
-func (a *AuthHandler) Oauth2FacebookLoginHTTPHandler(w http.ResponseWriter, r *http.Request) {
+// func (a *AuthHandler) Oauth2FacebookLoginHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
-	res := helper.Response{}
+// 	res := helper.Response{}
 
-	defer res.ServeJSON(w, r)
+// 	defer res.ServeJSON(w, r)
 
-	oauth2ConfigFb, _ := a.AUsecase.Oauth2FacebookLogin()
-	url := oauth2ConfigFb.AuthCodeURL("1234")
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+// 	oauth2ConfigFb, _ := a.AUsecase.Oauth2FacebookLogin()
+// 	url := oauth2ConfigFb.AuthCodeURL("1234")
+// 	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
 
-}
+// }
 
-func (a *AuthHandler) Oauth2FacebookCallbackHTTPHandler(w http.ResponseWriter, r *http.Request) {
+// func (a *AuthHandler) Oauth2FacebookCallbackHTTPHandler(w http.ResponseWriter, r *http.Request) {
 
-	oauth2ConfigFb, _ := a.AUsecase.Oauth2FacebookLogin()
+// 	oauth2ConfigFb, _ := a.AUsecase.Oauth2FacebookLogin()
 
-	state := r.FormValue("state")
-	if state != "1234" {
-		fmt.Printf("invalid oauth state, expected '%s', got '%s'\n", "1234", state)
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
-		return
-	}
+// 	state := r.FormValue("state")
+// 	if state != "1234" {
+// 		fmt.Printf("invalid oauth state, expected '%s', got '%s'\n", "1234", state)
+// 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+// 		return
+// 	}
 
-	code := r.FormValue("code")
-	token, err := oauth2ConfigFb.Exchange(oauth2.NoContext, code)
-	if err != nil {
-		fmt.Println("Code exchange failed with '%s'\n", err)
-		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
-		return
-	}
+// 	code := r.FormValue("code")
+// 	token, err := oauth2ConfigFb.Exchange(oauth2.NoContext, code)
+// 	if err != nil {
+// 		fmt.Println("Code exchange failed with '%s'\n", err)
+// 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+// 		return
+// 	}
 
-	response, err := http.Get("https://graph.facebook.com/v3.2/me?fields=id,name,email&access_token=" + token.AccessToken)
+// 	response, err := http.Get("https://graph.facebook.com/v3.2/me?fields=id,name,email&access_token=" + token.AccessToken)
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
 
-	defer response.Body.Close()
-	contents, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Fprintf(w, "Content: %s\n", contents)
+// 	defer response.Body.Close()
+// 	contents, err := ioutil.ReadAll(response.Body)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
+// 	fmt.Fprintf(w, "Content: %s\n", contents)
 
-}
+// }
