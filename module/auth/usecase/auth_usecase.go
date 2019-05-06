@@ -2,16 +2,15 @@ package usecase
 
 import (
 	"errors"
+	"time"
+
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
 	modelAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/model"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
-	"golang.org/x/oauth2"
 )
 
 type authUsecase struct {
@@ -61,8 +60,4 @@ func (a *authUsecase) LoginJWT(mu *model.User) (ma *modelAuth.Auth, err error) {
 	ma = &payload
 
 	return ma, err
-}
-
-func (a *authUsecase) Oauth2FacebookLogin() (*oauth2.Config, string) {
-	return modelAuth.NewFacebookOauth2Config(), uuid.NewV4().String()
 }
