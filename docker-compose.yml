@@ -25,6 +25,7 @@ services:
       - DB_USER=hakim
       - DB_PASS=x83zR3wfTNwZ4zGU
       - DB_SCHEMA=dapur_online_akutansi
+      - DB_PATH=public
 
 networks:
   traefiknet:
