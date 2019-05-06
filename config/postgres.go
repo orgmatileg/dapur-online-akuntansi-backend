@@ -19,7 +19,7 @@ func InitConnectionDB() {
 	dbName := os.Getenv("DB_SCHEMA")
 	dbPath := os.Getenv("DB_PATH")
 
-	dsn := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s search_path=%s sslmode=disable TimeZone=Asia/Jakarta", dbUser, dbPass, dbHost, dbPort, dbName, dbPath)
+	dsn := fmt.Sprintf("user=%s password=%s host=%s port=%s dbname=%s search_path=%s TimeZone=Asia/Jakarta sslmode=disable", dbUser, dbPass, dbHost, dbPort, dbName, dbPath)
 
 	db = createConnectionPostgres(dsn)
 
