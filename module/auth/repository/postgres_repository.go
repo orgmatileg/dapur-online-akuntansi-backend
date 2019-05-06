@@ -2,6 +2,7 @@ package repository
 
 import (
 	"database/sql"
+
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
 )
@@ -20,19 +21,9 @@ func NewAuthRepositoryPostgres(db *sql.DB) auth.Repository {
 func (r *postgresAuthRepository) LoginJWT(u *model.User) (user *model.User, err error) {
 
 	query := `
-		SELECT  
-		user_id,
-		username,
-		email,
-		password,
-		first_name,
-		last_name,
-		photo_profile,
-		created_at,
-		updated_at 
+		SELECT *
 		FROM tbl_users 
-		WHERE email = ?
-		LIMIT 1`
+		WHERE email = $1`
 
 	statement, err := r.db.Prepare(query)
 
@@ -44,7 +35,16 @@ func (r *postgresAuthRepository) LoginJWT(u *model.User) (user *model.User, err 
 
 	var mu model.User
 
-	err = statement.QueryRow(u.Email).Scan(&mu.UserID, &mu.Email, &mu.Password, &mu.FirstName, &mu.LastName, &mu.PhotoProfile, &mu.CreatedAt, &mu.UpdatedAt)
+	err = statement.QueryRow(u.Email).Scan(
+		&mu.UserID,
+		&mu.UserRoleID,
+		&mu.Email,
+		&mu.Password,
+		&mu.FirstName,
+		&mu.LastName,
+		&mu.PhotoProfile,
+		&mu.CreatedAt,
+		&mu.UpdatedAt)
 
 	if err != nil {
 		return nil, err
