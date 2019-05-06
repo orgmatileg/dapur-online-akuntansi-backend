@@ -7,13 +7,16 @@ FROM golang:alpine AS builder
 RUN apk update && apk add --no-cache git g++ tzdata
 
 # Mengganti working directory (kalau di linux/mac seperti command cd)
-WORKDIR $GOPATH/src/myapp/
+WORKDIR /app
 
-# Melakukan copy file dari folder saat ini ke folder working directory
+# COPY GO MOD and GO SUM
+COPY go.mod .
+COPY go.sum .
+
+# Get dependancies - will also be cached if we won't change mod/sum
+RUN go mod download
+# COPY the source code as the last step
 COPY . .
-
-# eksekusi go get untuk mendapatkan semua library / depedensi yang kita gunakan
-RUN go get -d -v
 
 # Set environment spesifik untuk build
 ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64 

@@ -5,22 +5,22 @@ import (
 	"fmt"
 	"strconv"
 
-	product "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product"
-	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/model"
+	transaction "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction"
+	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction/model"
 )
 
-// postgresProductRepository struct
-type postgresProductRepository struct {
+// postgresTransactionRepository struct
+type postgresTransactionRepository struct {
 	db *sql.DB
 }
 
 // NewExampleRepositoryMysql NewUserRepositoryMysql
-func NewProductRepositoryPostgres(db *sql.DB) product.Repository {
-	return &postgresProductRepository{db}
+func NewTransactionRepositoryPostgres(db *sql.DB) transaction.Repository {
+	return &postgresTransactionRepository{db}
 }
 
 // Save
-func (r *postgresProductRepository) Save(m *model.Product) error {
+func (r *postgresTransactionRepository) Save(m *model.Transaction) error {
 	query := `
 	INSERT INTO tbl_products
 	(
@@ -44,18 +44,18 @@ func (r *postgresProductRepository) Save(m *model.Product) error {
 
 	defer statement.Close()
 
-	return statement.QueryRow(m.ProductTypes.ProductTypesID, m.Name, m.Description, m.CapitalPrice, m.SellingPrice, m.Image, m.CreatedAt, m.UpdatedAt).Scan(&m.ProductID)
+	return statement.QueryRow(m.TransactionID).Scan(&m.TransactionID)
 }
 
 // FindByID Example
-func (r *postgresProductRepository) FindByID(id string) (*model.Product, error) {
+func (r *postgresTransactionRepository) FindByID(id string) (*model.Transaction, error) {
 
 	query := `
 	SELECT *
-	FROM v_products 
-	WHERE product_id = $1`
+	FROM v_transaction 
+	WHERE transaction_id = $1`
 
-	var m model.Product
+	var m model.Transaction
 
 	statement, err := r.db.Prepare(query)
 
@@ -66,16 +66,12 @@ func (r *postgresProductRepository) FindByID(id string) (*model.Product, error) 
 	defer statement.Close()
 
 	err = statement.QueryRow(id).Scan(
-		&m.ProductID,
-		&m.Name,
-		&m.Description,
-		&m.CapitalPrice,
-		&m.SellingPrice,
-		&m.Image,
+		&m.TransactionID,
+		&m.TransactionDataD,
 		&m.CreatedAt,
 		&m.UpdatedAt,
-		&m.ProductTypes.ProductTypesID,
-		&m.ProductTypes.ProductTypesName,
+		&m.CreatedBy.UserID,
+		&m.CreatedBy.UserFullName,
 	)
 
 	if err != nil {
@@ -86,16 +82,16 @@ func (r *postgresProductRepository) FindByID(id string) (*model.Product, error) 
 }
 
 // FindAll Example
-func (r *postgresProductRepository) FindAll(limit, offset, order string) (model.ProductList, error) {
+func (r *postgresTransactionRepository) FindAll(limit, offset, order string) (model.TransactionList, error) {
 
 	query := fmt.Sprintf(`
 	SELECT *
-	FROM v_products
+	FROM v_transaction
 	ORDER BY created_at %s
 	LIMIT %s
 	OFFSET %s`, order, limit, offset)
 
-	var ml model.ProductList
+	var ml model.TransactionList
 
 	rows, err := r.db.Query(query)
 
@@ -106,19 +102,15 @@ func (r *postgresProductRepository) FindAll(limit, offset, order string) (model.
 	defer rows.Close()
 
 	for rows.Next() {
-		var m model.Product
+		var m model.Transaction
 
 		err = rows.Scan(
-			&m.ProductID,
-			&m.Name,
-			&m.Description,
-			&m.CapitalPrice,
-			&m.SellingPrice,
-			&m.Image,
+			&m.TransactionID,
+			&m.TransactionDataD,
 			&m.CreatedAt,
 			&m.UpdatedAt,
-			&m.ProductTypes.ProductTypesID,
-			&m.ProductTypes.ProductTypesName,
+			&m.CreatedBy.UserID,
+			&m.CreatedBy.UserFullName,
 		)
 
 		if err != nil {
@@ -131,7 +123,7 @@ func (r *postgresProductRepository) FindAll(limit, offset, order string) (model.
 }
 
 // Update Example
-func (r *postgresProductRepository) Update(id string, m *model.Product) (rowAffected *string, err error) {
+func (r *postgresTransactionRepository) Update(id string, m *model.Transaction) (rowAffected *string, err error) {
 
 	query := `
 	UPDATE tbl_products
@@ -155,12 +147,7 @@ func (r *postgresProductRepository) Update(id string, m *model.Product) (rowAffe
 	defer statement.Close()
 
 	result, err := statement.Exec(
-		m.ProductTypes.ProductTypesID,
-		m.Name,
-		m.Description,
-		m.CapitalPrice,
-		m.SellingPrice,
-		m.Image,
+
 		m.UpdatedAt,
 		id,
 	)
@@ -184,7 +171,7 @@ func (r *postgresProductRepository) Update(id string, m *model.Product) (rowAffe
 }
 
 // Delete Example
-func (r *postgresProductRepository) Delete(id string) error {
+func (r *postgresTransactionRepository) Delete(id string) error {
 
 	query := `
 	DELETE FROM tbl_products
@@ -208,7 +195,7 @@ func (r *postgresProductRepository) Delete(id string) error {
 }
 
 // IsExistsByID Example
-func (r *postgresProductRepository) IsExistsByID(id string) (isExist bool, err error) {
+func (r *postgresTransactionRepository) IsExistsByID(id string) (isExist bool, err error) {
 
 	query := "SELECT EXISTS(SELECT TRUE from tbl_products WHERE product_id = $1)"
 	statement, err := r.db.Prepare(query)
@@ -229,11 +216,11 @@ func (r *postgresProductRepository) IsExistsByID(id string) (isExist bool, err e
 }
 
 // Count Posts
-func (r *postgresProductRepository) Count() (count int64, err error) {
+func (r *postgresTransactionRepository) Count() (count int64, err error) {
 
 	query := `
 	SELECT COUNT(*)
-	FROM v_products
+	FROM v_transaction
 	`
 
 	statement, err := r.db.Prepare(query)

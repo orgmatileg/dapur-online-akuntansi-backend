@@ -2,19 +2,24 @@
   "carts": [
     {
       "product_id": 1,
-      "product_name": "Ikan bakar",
+      "qty": 1,
       "product_types": {
         "product_types_id": 1,
         "product_types_name": "makanan"
       },
+      "name": "Ikan bakar",
       "capital_price": 5000,
       "selling_price": 10000,
+      "actual_selling_price": 10000,
       "image": "",
-      "description": "",
-      "note": ""
+      "description": "Makanan Mantab",
+      "notes_product": "Transaksi tersukses",
+      "created_at": "2019-03-26T18:52:09.633922+07:00",
+      "updated_at": "2019-03-26T18:52:09.633922+07:00"
     }
   ],
   "grand_total_capital_price": 5000,
   "grand_total_selling_price": 10000,
-  "notes": ""
+  "grand_total_profit": 5000,
+  "notes_transaction": ""
 }

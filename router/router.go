@@ -33,6 +33,11 @@ import (
 	_productRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/repository"
 	_productUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/product/usecase"
 
+	// Transaction
+	hTransaction "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction/delivery/http"
+	_transactionRepo "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction/repository"
+	_transactionUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction/usecase"
+
 	"github.com/gorilla/mux"
 )
 
@@ -83,6 +88,11 @@ func InitRouter() *mux.Router {
 	productRepo := _productRepo.NewProductRepositoryPostgres(dbConn)
 	productUcase := _productUcase.NewProductUsecase(productRepo)
 	hProduct.NewProductHTTPHandler(rv1, productUcase)
+
+	// Transaction
+	transactionRepo := _transactionRepo.NewTransactionRepositoryPostgres(dbConn)
+	transactionUcase := _transactionUcase.NewTransactionUsecase(transactionRepo)
+	hTransaction.NewTransactionHTTPHandler(rv1, transactionUcase)
 
 	return r
 }
