@@ -22,19 +22,15 @@ func NewTransactionRepositoryPostgres(db *sql.DB) transaction.Repository {
 // Save
 func (r *postgresTransactionRepository) Save(m *model.Transaction) error {
 	query := `
-	INSERT INTO tbl_products
+	INSERT INTO tbl_transaction
 	(
-		product_types_id,
-		product_name,
-		product_desc,
-		product_capital_price,
-		product_selling_price,
-		product_image,
+		transaction_data,
+		created_by,
 		created_at,
 		updated_at
 	)
-	VALUES ( $1, $2, $3, $4, $5, $6, $7, $8 )
-	RETURNING product_id`
+	VALUES ( $1, $2, $3, $4 )
+	RETURNING transaction_id`
 
 	statement, err := r.db.Prepare(query)
 
@@ -44,7 +40,12 @@ func (r *postgresTransactionRepository) Save(m *model.Transaction) error {
 
 	defer statement.Close()
 
-	return statement.QueryRow(m.TransactionID).Scan(&m.TransactionID)
+	return statement.QueryRow(
+		m.TransactionDataD,
+		m.CreatedBy.UserID,
+		m.CreatedAt,
+		m.UpdatedAt,
+	).Scan(&m.TransactionID)
 }
 
 // FindByID Example
@@ -174,8 +175,8 @@ func (r *postgresTransactionRepository) Update(id string, m *model.Transaction) 
 func (r *postgresTransactionRepository) Delete(id string) error {
 
 	query := `
-	DELETE FROM tbl_products
-	WHERE product_id = $1`
+	DELETE FROM tbl_transaction
+	WHERE transaction_id = $1`
 
 	statement, err := r.db.Prepare(query)
 
@@ -197,7 +198,7 @@ func (r *postgresTransactionRepository) Delete(id string) error {
 // IsExistsByID Example
 func (r *postgresTransactionRepository) IsExistsByID(id string) (isExist bool, err error) {
 
-	query := "SELECT EXISTS(SELECT TRUE from tbl_products WHERE product_id = $1)"
+	query := "SELECT EXISTS(SELECT TRUE from tbl_transaction WHERE transaction_id = $1)"
 	statement, err := r.db.Prepare(query)
 
 	if err != nil {
@@ -220,7 +221,7 @@ func (r *postgresTransactionRepository) Count() (count int64, err error) {
 
 	query := `
 	SELECT COUNT(*)
-	FROM v_transaction
+	FROM tbl_transaction
 	`
 
 	statement, err := r.db.Prepare(query)

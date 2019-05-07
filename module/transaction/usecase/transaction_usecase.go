@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	product "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction"
@@ -21,26 +20,26 @@ func NewTransactionUsecase(r product.Repository) transaction.Usecase {
 }
 
 func (u *transactionUsecase) Save(m *model.Transaction) (err error) {
+	m.TransactionDataD, err = json.Marshal(m.TransactionDataH)
+
+	if err != nil {
+		return err
+	}
+
 	return u.transactionRepo.Save(m)
 }
 
 func (u *transactionUsecase) FindByID(id string) (m *model.Transaction, err error) {
-
 	m, err = u.transactionRepo.FindByID(id)
-
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-
-	// Unmarshall jsonb from DB
 	err = json.Unmarshal(m.TransactionDataD, &m.TransactionDataH)
-
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-
 	return
 }
 
@@ -52,9 +51,7 @@ func (u *transactionUsecase) FindAll(limit, offset, order string) (ml model.Tran
 	}
 
 	for i, v := range ml {
-		// Unmarshall jsonb from DB
 		err = json.Unmarshal(v.TransactionDataD, &ml[i].TransactionDataH)
-		fmt.Println(i, v)
 		if err != nil {
 			log.Println(err)
 			return nil, -1, err
