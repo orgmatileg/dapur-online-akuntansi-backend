@@ -81,6 +81,8 @@ func (r *postgresUserRoleRepository) FindAll(limit, offset, order string) (model
 	LIMIT %s
 	OFFSET %s`, order, limit, offset)
 
+	fmt.Println(order, limit, offset)
+
 	var ml model.UserRoleList
 
 	rows, err := r.db.Query(query)

@@ -22,12 +22,12 @@ func NewUsersRoleHttpHandler(r *mux.Router, uu userRole.Usecase) {
 		UUsecase: uu,
 	}
 
-	r.HandleFunc("/users/roles", handler.UserRoleSaveHTTPHandler).Methods("POST")
-	r.HandleFunc("/users/roles", handler.UserRoleFindAllHTTPHandler).Methods("GET")
-	r.HandleFunc("/users/roles/{id}", handler.UserRoleFindByIDHTTPHandler).Methods("GET")
-	r.HandleFunc("/users/roles/{id}", handler.UserRoleUpdateHTTPHandler).Methods("PUT")
-	r.HandleFunc("/users/roles/{id}", handler.UserRoleDeleteHTTPHandler).Methods("DELETE")
-	r.HandleFunc("/users/roles/{id}/exists", handler.UserRoleIsExistsByIDHTTPHandler).Methods("GET")
+	r.HandleFunc("/roles", handler.UserRoleSaveHTTPHandler).Methods("POST")
+	r.HandleFunc("/roles", handler.UserRoleFindAllHTTPHandler).Methods("GET")
+	r.HandleFunc("/roles/{id}", handler.UserRoleFindByIDHTTPHandler).Methods("GET")
+	r.HandleFunc("/roles/{id}", handler.UserRoleUpdateHTTPHandler).Methods("PUT")
+	r.HandleFunc("/roles/{id}", handler.UserRoleDeleteHTTPHandler).Methods("DELETE")
+	r.HandleFunc("/roles/{id}/exists", handler.UserRoleIsExistsByIDHTTPHandler).Methods("GET")
 }
 
 // UserRoleSaveHTTPHandler handler
