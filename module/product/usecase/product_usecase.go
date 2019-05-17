@@ -49,7 +49,7 @@ func (u *productUsecase) Save(m *model.Product) (err error) {
 		if err != nil {
 			log.Fatal(err)
 		}
-		secretFile := dir + "/dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		secretFile := dir + "dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
 		fmt.Println(dir, secretFile)
 		opt := option.WithCredentialsFile(secretFile)
 
