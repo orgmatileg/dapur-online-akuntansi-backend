@@ -30,7 +30,7 @@ FROM scratch
 
 # Melakukan copy binary dari hasil build image sebelumnya ke image scratch ini
 COPY --from=builder /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-# COPY --from=builder /app/dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json /
+COPY --from=builder /app/firebase-token.json /
 COPY --from=builder /go/bin/app /app
 
 # Melakukan eksekusi binary apps. goodluck!
