@@ -44,9 +44,10 @@ func (u *productUsecase) Save(m *model.Product) (err error) {
 			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		secretFile := "firebase-token.json"
-		fmt.Println(secretFile)
-		opt := option.WithCredentialsFile(secretFile)
+		// secretFile := "firebase-token.json"
+		// fmt.Println(secretFile)
+		// opt := option.WithCredentialsFile(secretFile)
+		opt := option.WithAPIKey("AIzaSyAVlbuJ5wKL7AnJ9N9-x8Vaz5RGw06EclI")
 
 		app, err := firebase.NewApp(context.Background(), config, opt)
 		if err != nil {
