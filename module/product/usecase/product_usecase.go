@@ -44,7 +44,7 @@ func (u *productUsecase) Save(m *model.Product) (err error) {
 			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		secretFile := "./dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		secretFile := "dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
 		fmt.Println(secretFile)
 		opt := option.WithCredentialsFile(secretFile)
 
@@ -119,7 +119,7 @@ func (u *productUsecase) Update(id string, m *model.Product) (rowAffected *strin
 			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		secretFile := "./dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		secretFile := "dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
 
 		opt := option.WithCredentialsFile(secretFile)
 
