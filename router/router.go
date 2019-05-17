@@ -38,6 +38,7 @@ import (
 	_transactionUcase "github.com/orgmatileg/dapur-online-akuntansi-backend/module/transaction/usecase"
 
 	"github.com/gorilla/mux"
+	m "github.com/orgmatileg/dapur-online-akuntansi-backend/middleware"
 )
 
 // InitRouter endpoint
@@ -58,7 +59,7 @@ func InitRouter() *mux.Router {
 	rv1 := r.PathPrefix("/v1").Subrouter()
 
 	// Middleware
-	// rv1.Use(m.CheckAuth)
+	rv1.Use(m.CheckAuth)
 
 	// Get DB Conn
 	dbConn := config.GetPostgresDB()
