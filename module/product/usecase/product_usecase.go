@@ -40,60 +40,61 @@ func base64towriter(b64 string) ([]byte, error) {
 }
 
 func (u *productUsecase) Save(m *model.Product) (err error) {
-if m.Image != "" {
-	config := &firebase.Config{
-		StorageBucket: "dapur-online.appspot.com",
+	if m.Image != "" {
+		config := &firebase.Config{
+			StorageBucket: "dapur-online.appspot.com",
+		}
+
+		dir, err := os.Getwd()
+		if err != nil {
+			log.Fatal(err)
+		}
+		secretFile := dir + "/dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		fmt.Println(dir, secretFile)
+		opt := option.WithCredentialsFile(secretFile)
+
+		app, err := firebase.NewApp(context.Background(), config, opt)
+		if err != nil {
+			log.Fatalln(err, "1")
+		}
+		client, err := app.Storage(context.Background())
+		if err != nil {
+			log.Fatalln(err, "2")
+		}
+
+		bucket, err := client.DefaultBucket()
+		if err != nil {
+			log.Fatalln(err, "3")
+		}
+
+		sw := bucket.Object(fmt.Sprintf("produk-penjualan/produk-%d.png", time.Now().Unix())).NewWriter(context.Background())
+		sw.ContentType = "image/png"
+
+		b, err := base64towriter(m.Image)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		i, err := sw.Write(b)
+
+		if err != nil {
+			fmt.Println(err, "5")
+		}
+
+		err = sw.Close()
+
+		if err != nil {
+			fmt.Println(err, "6")
+		}
+
+		fmt.Println(sw.MediaLink, "url gambar")
+
+		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
+		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
+		m.Image = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
+
+		fmt.Println(i, err)
 	}
-
-	dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-	secretFile := dir + "/module/product/usecase/dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
-	opt := option.WithCredentialsFile(secretFile)
-
-	app, err := firebase.NewApp(context.Background(), config, opt)
-	if err != nil {
-		log.Fatalln(err, "1")
-	}
-	client, err := app.Storage(context.Background())
-	if err != nil {
-		log.Fatalln(err, "2")
-	}
-
-	bucket, err := client.DefaultBucket()
-	if err != nil {
-		log.Fatalln(err, "3")
-	}
-
-	sw := bucket.Object(fmt.Sprintf("produk-penjualan/produk-%d.png", time.Now().Unix())).NewWriter(context.Background())
-	sw.ContentType = "image/png"
-
-	b, err := base64towriter(m.Image)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	i, err := sw.Write(b)
-
-	if err != nil {
-		fmt.Println(err, "5")
-	}
-
-	err = sw.Close()
-
-	if err != nil {
-		fmt.Println(err, "6")
-	}
-
-	fmt.Println(sw.MediaLink, "url gambar")
-
-	googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
-	firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
-	m.Image = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
-
-	fmt.Println(i, err)
-}
 
 	return u.productRepo.Save(m)
 }
