@@ -6,7 +6,6 @@ import (
 	"net/http"
 
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/config"
-	m "github.com/orgmatileg/dapur-online-akuntansi-backend/middleware"
 
 	// Auth
 	hAuth "github.com/orgmatileg/dapur-online-akuntansi-backend/module/auth/delivery/http"
@@ -59,7 +58,7 @@ func InitRouter() *mux.Router {
 	rv1 := r.PathPrefix("/v1").Subrouter()
 
 	// Middleware
-	rv1.Use(m.CheckAuth)
+	// rv1.Use(m.CheckAuth)
 
 	// Get DB Conn
 	dbConn := config.GetPostgresDB()
