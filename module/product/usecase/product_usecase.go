@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
-	"os"
 	"strings"
 	"time"
 
@@ -120,11 +119,8 @@ func (u *productUsecase) Update(id string, m *model.Product) (rowAffected *strin
 			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		dir, err := os.Getwd()
-		if err != nil {
-			log.Fatal(err)
-		}
-		secretFile := dir + "/module/product/usecase/dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		secretFile := "./dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+
 		opt := option.WithCredentialsFile(secretFile)
 
 		app, err := firebase.NewApp(context.Background(), config, opt)
