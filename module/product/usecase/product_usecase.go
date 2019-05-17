@@ -110,6 +110,13 @@ func (u *productUsecase) FindAll(limit, offset, order string) (ml model.ProductL
 }
 
 func (u *productUsecase) Update(id string, m *model.Product) (rowAffected *string, err error) {
+	if m.Image == "" {
+		v, err := u.FindByID(id)
+		if err != nil {
+			return nil, err
+		}
+		m.Image = v.Image
+	}
 	config := &firebase.Config{
 		StorageBucket: "dapur-online.appspot.com",
 	}
@@ -178,5 +185,7 @@ func (u *productUsecase) Count() (count int64, err error) {
 }
 
 // func (u *productUsecase) Count() (count int64, err error) {
+// 	return u.productRepo.Count()
+// }
 // 	return u.productRepo.Count()
 // }
