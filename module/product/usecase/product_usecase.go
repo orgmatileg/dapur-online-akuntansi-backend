@@ -45,12 +45,8 @@ func (u *productUsecase) Save(m *model.Product) (err error) {
 			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		dir, err := os.Getwd()
-		if err != nil {
-			log.Fatal(err)
-		}
-		secretFile := dir + "dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
-		fmt.Println(dir, secretFile)
+		secretFile := "./dapur-online-firebase-adminsdk-2m3s6-dfdae8ffb2.json"
+		fmt.Println(secretFile)
 		opt := option.WithCredentialsFile(secretFile)
 
 		app, err := firebase.NewApp(context.Background(), config, opt)
