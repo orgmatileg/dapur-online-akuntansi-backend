@@ -1,12 +1,20 @@
 package usecase
 
 import (
-	"github.com/orgmatileg/dapur-online-akuntansi-backend/helper"
+	"context"
+	"encoding/base64"
+	"fmt"
+	"log"
+	"strings"
+
+	firebase "firebase.google.com/go"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users"
 	"github.com/orgmatileg/dapur-online-akuntansi-backend/module/users/model"
+	"google.golang.org/api/option"
+
+	"time"
 
 	"golang.org/x/crypto/bcrypt"
-	"time"
 )
 
 type usersUsercase struct {
@@ -19,20 +27,75 @@ func NewUsersUsecase(u users.Repository) users.Usecase {
 	}
 }
 
+func base64towriter(b64 string) ([]byte, error) {
+
+	indexNum := strings.Index(string(b64), ",")
+	stringSplit := string(b64)[indexNum+1:]
+	unbased, err := base64.StdEncoding.DecodeString(string(stringSplit))
+
+	if err != nil {
+		return nil, err
+	}
+
+	return unbased, nil
+
+}
+
 func (u *usersUsercase) Save(mu *model.User) (err error) {
 
 	// Handle Photo Profile
 	defaultPhotoProfile := "https://i.ibb.co/whHn3mf/default-photo-profile.png"
 
 	if mu.PhotoProfile != "" {
-		imgBB := helper.NewImgBBConn()
-		imgURL, err := imgBB.Upload(mu.PhotoProfile)
-
-		if err != nil {
-			return err
+		config := &firebase.Config{
+			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		mu.PhotoProfile = imgURL
+		secretFile := "/firebase-token.json"
+		fmt.Println(secretFile)
+		opt := option.WithCredentialsFile(secretFile)
+
+		app, err := firebase.NewApp(context.Background(), config, opt)
+		if err != nil {
+			log.Fatalln(err, "1")
+		}
+		client, err := app.Storage(context.Background())
+		if err != nil {
+			log.Fatalln(err, "2")
+		}
+
+		bucket, err := client.DefaultBucket()
+		if err != nil {
+			log.Fatalln(err, "3")
+		}
+
+		sw := bucket.Object(fmt.Sprintf("user-photo-profile/photo-profile-%d.png", time.Now().Unix())).NewWriter(context.Background())
+		sw.ContentType = "image/png"
+
+		b, err := base64towriter(mu.PhotoProfile)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		i, err := sw.Write(b)
+
+		if err != nil {
+			fmt.Println(err, "5")
+		}
+
+		err = sw.Close()
+
+		if err != nil {
+			fmt.Println(err, "6")
+		}
+
+		fmt.Println(sw.MediaLink, "url gambar")
+
+		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
+		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
+		mu.PhotoProfile = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
+
+		fmt.Println(i, err)
 	} else {
 		mu.PhotoProfile = defaultPhotoProfile
 	}
@@ -93,21 +156,58 @@ func (u *usersUsercase) Update(idUser string, mu *model.User) (rowAffected *stri
 		return nil, err
 	}
 
-	// Handle not change photo profile (empty)
-	if mu.PhotoProfile == "" {
-		mu.PhotoProfile = v.PhotoProfile
-	}
-
-	// Handle photo profile is new
-	if mu.PhotoProfile != v.PhotoProfile {
-		imgBB := helper.NewImgBBConn()
-		imgURL, err := imgBB.Upload(mu.PhotoProfile)
-
-		if err != nil {
-			return nil, err
+	if mu.PhotoProfile != "" {
+		config := &firebase.Config{
+			StorageBucket: "dapur-online.appspot.com",
 		}
 
-		mu.PhotoProfile = imgURL
+		secretFile := "/firebase-token.json"
+		fmt.Println(secretFile)
+		opt := option.WithCredentialsFile(secretFile)
+
+		app, err := firebase.NewApp(context.Background(), config, opt)
+		if err != nil {
+			log.Fatalln(err, "1")
+		}
+		client, err := app.Storage(context.Background())
+		if err != nil {
+			log.Fatalln(err, "2")
+		}
+
+		bucket, err := client.DefaultBucket()
+		if err != nil {
+			log.Fatalln(err, "3")
+		}
+
+		sw := bucket.Object(fmt.Sprintf("user-photo-profile/photo-profile-%d.png", time.Now().Unix())).NewWriter(context.Background())
+		sw.ContentType = "image/png"
+
+		b, err := base64towriter(mu.PhotoProfile)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		i, err := sw.Write(b)
+
+		if err != nil {
+			fmt.Println(err, "5")
+		}
+
+		err = sw.Close()
+
+		if err != nil {
+			fmt.Println(err, "6")
+		}
+
+		fmt.Println(sw.MediaLink, "url gambar")
+
+		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
+		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
+		mu.PhotoProfile = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
+
+		fmt.Println(i, err)
+	} else {
+		mu.PhotoProfile = v.PhotoProfile
 	}
 
 	// Handle Password
