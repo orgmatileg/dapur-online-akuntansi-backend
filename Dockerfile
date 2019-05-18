@@ -4,7 +4,7 @@
 FROM golang:alpine AS builder
 
 # Install git (Ga usah di tanya lah ya kalau ini haha), g++ (untuk build), tzdata (Untuk set timezone)
-RUN apk update && apk add --no-cache git g++ tzdata
+RUN apk update && apk add --no-cache git g++ tzdata ca-certificates && update-ca-certificates
 
 # Mengganti working directory (kalau di linux/mac seperti command cd)
 WORKDIR /app
@@ -30,6 +30,7 @@ FROM scratch
 
 # Melakukan copy binary dari hasil build image sebelumnya ke image scratch ini
 COPY --from=builder /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY ./firebase-token.json /
 COPY --from=builder /go/bin/app /app
 
