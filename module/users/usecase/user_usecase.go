@@ -91,8 +91,8 @@ func (u *usersUsercase) Save(mu *model.User) (err error) {
 
 		fmt.Println(sw.MediaLink, "url gambar")
 
-		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
-		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
+		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/user-photo-profile"
+		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/user-photo-profile"
 		mu.PhotoProfile = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
 
 		fmt.Println(i, err)
@@ -201,8 +201,8 @@ func (u *usersUsercase) Update(idUser string, mu *model.User) (rowAffected *stri
 
 		fmt.Println(sw.MediaLink, "url gambar")
 
-		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/produk-penjualan"
-		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/produk-penjualan"
+		googleAPIURL := "https://www.googleapis.com/download/storage/v1/b/dapur-online.appspot.com/o/user-photo-profile"
+		firebaseAPIURL := "https://firebasestorage.googleapis.com/v0/b/dapur-online.appspot.com/o/user-photo-profile"
 		mu.PhotoProfile = strings.Replace(sw.Attrs().MediaLink, googleAPIURL, firebaseAPIURL, -1)
 
 		fmt.Println(i, err)
