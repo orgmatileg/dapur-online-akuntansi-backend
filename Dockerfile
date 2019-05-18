@@ -40,7 +40,7 @@ COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=builder firebase-token.json /
+COPY --from=builder /app/firebase-token.json /
 COPY --from=builder /go/bin/app /
 
 # Use an unprivileged user.
