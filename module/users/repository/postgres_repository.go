@@ -55,7 +55,7 @@ func (r *postgresUsersRepository) Save(u *model.User) error {
 func (r *postgresUsersRepository) FindByID(id string) (*model.User, error) {
 	query := `
 	SELECT *
-	FROM tbl_users 
+	FROM v_users 
 	WHERE user_id = $1`
 
 	var user model.User
@@ -68,7 +68,7 @@ func (r *postgresUsersRepository) FindByID(id string) (*model.User, error) {
 
 	defer statement.Close()
 
-	err = statement.QueryRow(id).Scan(&user.UserID, &user.UserRoleID, &user.Email, &user.Password, &user.FirstName, &user.LastName, &user.PhotoProfile, &user.CreatedAt, &user.UpdatedAt)
+	err = statement.QueryRow(id).Scan(&user.UserID, &user.UserRoleID, &user.UserRoleName, &user.Email, &user.Password, &user.FirstName, &user.LastName, &user.PhotoProfile, &user.CreatedAt, &user.UpdatedAt)
 
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func (r *postgresUsersRepository) FindAll(limit, offset, order string) (model.Us
 
 	query := fmt.Sprintf(`
 	SELECT *
-	FROM tbl_users
+	FROM v_users
 	ORDER BY created_at %s
 	LIMIT %s 
 	OFFSET %s`, order, limit, offset)
@@ -100,7 +100,7 @@ func (r *postgresUsersRepository) FindAll(limit, offset, order string) (model.Us
 	for rows.Next() {
 		var user model.User
 
-		err = rows.Scan(&user.UserID, &user.UserRoleID, &user.Email, &user.Password, &user.FirstName, &user.LastName, &user.PhotoProfile, &user.CreatedAt, &user.UpdatedAt)
+		err = rows.Scan(&user.UserID, &user.UserRoleID, &user.UserRoleName, &user.Email, &user.Password, &user.FirstName, &user.LastName, &user.PhotoProfile, &user.CreatedAt, &user.UpdatedAt)
 
 		if err != nil {
 			return nil, err
